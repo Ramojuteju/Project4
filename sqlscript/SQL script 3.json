@@ -1,0 +1,17 @@
+{
+	"name": "SQL script 3",
+	"properties": {
+		"content": {
+			"query": "IF NOT EXISTS (SELECT * FROM sys.external_file_formats WHERE name = 'SynapseDelimitedTextFormat') \n\tCREATE EXTERNAL FILE FORMAT [SynapseDelimitedTextFormat] \n\tWITH ( FORMAT_TYPE = DELIMITEDTEXT ,\n\t       FORMAT_OPTIONS (\n\t\t\t FIELD_TERMINATOR = ',',\n\t\t\t USE_TYPE_DEFAULT = FALSE\n\t\t\t))\nGO\n\nIF NOT EXISTS (SELECT * FROM sys.external_data_sources WHERE name = 'gold_microdata23_dfs_core_windows_net') \n\tCREATE EXTERNAL DATA SOURCE [gold_microdata23_dfs_core_windows_net] \n\tWITH (\n\t\tLOCATION = 'abfss://gold@microdata23.dfs.core.windows.net' \n\t)\nGO\n\nCREATE EXTERNAL TABLE dbo.newgold (\n\t[C1] nvarchar(4000),\n\t[C2] nvarchar(4000),\n\t[C3] nvarchar(4000)\n\t)\n\tWITH (\n\tLOCATION = 'part-00000-tid-6109184582946030705-6481e590-8738-4602-9a6a-8d4eef72a8b9-62-1-c000.csv',\n\tDATA_SOURCE = [gold_microdata23_dfs_core_windows_net],\n\tFILE_FORMAT = [SynapseDelimitedTextFormat]\n\t)\nGO\n\n\nSELECT TOP 100 * FROM dbo.newgold\nGO",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "newpool",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

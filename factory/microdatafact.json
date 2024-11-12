@@ -1,0 +1,9 @@
+{
+	"name": "microdatafact",
+	"location": "canadacentral",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "4498178c-3407-4a1b-b000-0a8354488daf",
+		"tenantId": "32e6e18b-76be-433f-82ae-805603a70e49"
+	}
+}
